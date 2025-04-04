@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         marginBottom: 10,
+        marginInline: 10,
     },
 });
