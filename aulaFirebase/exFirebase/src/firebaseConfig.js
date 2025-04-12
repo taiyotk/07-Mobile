@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
-import { initializeFireStore } from "firebase/firestore";
+import { initializeFirestore } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -12,14 +12,13 @@ const firebaseConfig = {
   storageBucket: "aulafirebase-f4cf0.firebasestorage.app",
   messagingSenderId: "49151060758",
   appId: "1:49151060758:web:1a809131ca9b3e83b3be37",
-  measurementId: "G-2YLDRHZVJR"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase
-const db = initializeFireStore(app,{
+const db = initializeFirestore(app, {
     experimentalForceLongPolling:true,
     usefetchStreams: false,
 });
