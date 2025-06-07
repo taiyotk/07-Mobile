@@ -35,7 +35,7 @@ export default function UsersListScreen({ navigation }) {
     >
       <View>
         <TouchableOpacity
-          style={styles.button} // Adicione o estilo aqui
+          style={styles.button} 
           onPress={() => navigation.navigate('Form')}
         >
           <Text style={styles.buttonText}>Novo Aluguel</Text>
@@ -46,7 +46,7 @@ export default function UsersListScreen({ navigation }) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text style={styles.itemText}>Nome do cliente: {item.NomeCliente}</Text>
+            <Text style={styles.itemText}>Nome do cliente: {item.nomecliente}</Text>
             <Text style={styles.itemText}>Nome do carro: {item.NomeCarro}</Text>
             <Text style={styles.itemText}>Data do Aluguel: {item.DataAluguel}</Text>
             <Text style={styles.itemText}>Valor do Aluguel: {item.ValorAluguel}</Text>
