@@ -1,5 +1,5 @@
 {
-  "name": "projetofirebase",
+  "name": "prova-taiyo-matheus",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-navigation/native": "^7.1.10",
+    "@react-navigation/native-stack": "^7.3.14",
     "@react-navigation/stack": "^7.3.3",
     "expo": "~53.0.0",
     "expo-status-bar": "~2.2.3",

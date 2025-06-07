@@ -30,8 +30,8 @@ export default function RegisterScreen({ navigation }) {
       // 2) cadastra no Auth
       await createUserWithEmailAndPassword(
         auth,
-        form.email,
-        form.senha
+        form.Email,
+        form.Senha
       );
       Alert.alert('Sucesso', 'Usuário cadastrado!');
       navigation.navigate('Login');

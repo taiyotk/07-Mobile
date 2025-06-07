@@ -14,6 +14,15 @@ const useFirebase = () => {
     }
   };
 
+  const addCliente = async (data) => {
+    setLoading(true);
+    try {
+      await addDoc(collection(db, 'clientes'), data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchUsers = async () => {
     const snapshot = await getDocs(collection(db, 'User'));
     return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -29,7 +38,7 @@ const useFirebase = () => {
     return document.data();
   };
 
-  return { addUser, fetchUsers, getUserById, loading, fetchClientes };
+  return { addUser, addCliente, fetchUsers, getUserById, loading, fetchClientes };
 };
 
 export default useFirebase;

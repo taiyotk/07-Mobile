@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import auth from '../services/credenciaisFirebaseAuth';
+import { StyleSheet } from 'react-native';
+
+
 import useFirebase from '../hooks/useFirebase';
 import globalStyles from '../styles/globalStyles';
 
@@ -16,26 +17,19 @@ export default function FormScreen({ navigation }) {
   const [form, setForm] = useState({
     nomecliente: '',
     NomeCarro: '',
-    ValorAluguel: 0,
+    ValorAluguel: '',
     DataAluguel: ''
   });
-  const { addUser } = useFirebase();
+  const { addCliente } = useFirebase();
 
   const handleChange = (field, value) =>
     setForm({ ...form, [field]: value });
 
   const handleSubmit = async () => {
     try {
-      // 1) cadastra no Firestore
-      await addUser(form);
-      // 2) cadastra no Auth
-      await createUserWithEmailAndPassword(
-        auth,
-        form.email,
-        form.senha
-      );
-      Alert.alert('Sucesso', 'Usuário cadastrado!');
-      navigation.navigate('Login');
+      await addCliente(form);
+      Alert.alert('Sucesso', 'Aluguel cadastrado!');
+      navigation.navigate('ListScreen');
     } catch (error) {
       Alert.alert('Erro', 'Falha no cadastro');
       console.error(error);
@@ -43,24 +37,76 @@ export default function FormScreen({ navigation }) {
   };
 
   return (
-    <View style={globalStyles.container}>
-      <Text style={globalStyles.title}>Cadastro</Text>
-      {['nome', 'email', 'senha'].map((field) => (
-        <TextInput
-          key={field}
-          placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-          style={globalStyles.input}
-          secureTextEntry={field === 'senha'}
-          value={form[field]}
-          onChangeText={(v) => handleChange(field, v)}
-        />
-      ))}
+    <View style={[globalStyles.container, styles.container]}>
+      <Text style={[globalStyles.title, styles.title]}>Cadastro de Aluguel</Text>
+      <TextInput
+        placeholder="Nome do Cliente"
+        style={[globalStyles.input, styles.input]}
+        value={form.nomecliente}
+        onChangeText={(v) => handleChange('nomecliente', v)}
+      />
+      <TextInput
+        placeholder="Nome do Carro"
+        style={[globalStyles.input, styles.input]}
+        value={form.NomeCarro}
+        onChangeText={(v) => handleChange('NomeCarro', v)}
+      />
+      <TextInput
+        placeholder="Valor do Aluguel"
+        style={[globalStyles.input, styles.input]}
+        value={form.ValorAluguel}
+        onChangeText={(v) => handleChange('ValorAluguel', v)}
+        keyboardType="numeric"
+      />
+      <TextInput
+        placeholder="Data do Aluguel"
+        style={[globalStyles.input, styles.input]}
+        value={form.DataAluguel}
+        onChangeText={(v) => handleChange('DataAluguel', v)}
+      />
       <TouchableOpacity
-        style={globalStyles.button}
+        style={[globalStyles.button, styles.button]}
         onPress={handleSubmit}
       >
-        <Text style={globalStyles.buttonText}>Cadastrar</Text>
+        <Text style={[globalStyles.buttonText, styles.buttonText]}>Cadastrar</Text>
       </TouchableOpacity>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 24,
+    backgroundColor: '#f7f7f7',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  title: {
+    marginBottom: 32,
+    color: '#333',
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  input: {
+    marginBottom: 18,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    paddingHorizontal: 14,
+    fontSize: 16,
+  },
+  button: {
+    marginTop: 16,
+    backgroundColor: '#1976d2',
+    borderRadius: 8,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+});
